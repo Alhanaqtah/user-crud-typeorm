@@ -32,4 +32,20 @@ export class Storage {
             throw error;
         }
     }
+
+    async getUser(id: number): Promise<User> {
+        try {
+           let u: User | null = await this.repo.findOneBy({
+            id: id,
+           }) 
+
+           if (u === null) {
+            throw new Error('User not found');
+           }
+
+           return u;
+        } catch (error) {
+            throw error;
+        }
+    }
 }

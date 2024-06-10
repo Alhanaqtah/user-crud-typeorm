@@ -37,11 +37,20 @@ app.post('/users', async (req: Request, res: Response) => {
 })
 
 app.put('/users/:id', async (req: Request, res: Response) => {
-    
+
 })
 
 app.get('/users/:id', async (req: Request, res: Response) => {
-    
+    try {
+        let id: number = parseInt(req.params.id, 10);
+
+        let user = await storage.getUser(id);
+
+        return res.status(200).json(user);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({'error': 'Internal error'});
+    }
 })
 
 app.delete('/users/:id', async (req: Request, res: Response) => {
