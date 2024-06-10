@@ -1,4 +1,4 @@
-import {DataSource, Repository} from 'typeorm';
+import {DataSource, Repository, UpdateResult} from 'typeorm';
 import { User } from '../entity/user';
 
 export class Storage {
@@ -54,6 +54,16 @@ export class Storage {
             this.repo.delete({
                 id: id,
             })
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async updateUser(id: number, user: User): Promise<void> {
+        try {
+            this.repo.update({
+                id: id
+            }, user)
         } catch (error) {
             throw error;
         }

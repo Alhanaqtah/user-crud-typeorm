@@ -37,7 +37,17 @@ app.post('/users', async (req: Request, res: Response) => {
 })
 
 app.put('/users/:id', async (req: Request, res: Response) => {
+    try {
+        let user = req.body;
+        let id: number = parseInt(req.params.id, 10);
 
+        await storage.updateUser(id, user);
+
+        return res.sendStatus(200);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({'error': 'Internal error'});
+    }
 })
 
 app.get('/users/:id', async (req: Request, res: Response) => {
