@@ -48,4 +48,14 @@ export class Storage {
             throw error;
         }
     }
+
+    async removeUser(id: number): Promise<void> {
+        try {
+            this.repo.delete({
+                id: id,
+            })
+        } catch (error) {
+            throw error;
+        }
+    }
 }

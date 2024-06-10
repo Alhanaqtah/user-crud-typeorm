@@ -54,7 +54,16 @@ app.get('/users/:id', async (req: Request, res: Response) => {
 })
 
 app.delete('/users/:id', async (req: Request, res: Response) => {
-    
+    try {
+        let id: number = parseInt(req.params.id, 10);
+
+        let user = await storage.removeUser(id);
+
+        return res.sendStatus(200);
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({'error': 'Internal error'});
+    }
 });
 
 let server = app.listen(port, () => {
